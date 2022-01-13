@@ -1,37 +1,221 @@
-# interview
+# 프론트 개발자 면접질문
 
-## Build Setup
+## 0. http와 https의 차이점
+1. HTTP - HyperText Transfer Protocol의 약자
+즉, Hypertext인 HTML을 전송하기 위한 통신 규약을 의미한다.
+
+2. HTTPS - HyperText Transfer Protocol Secure의 약자
+HTTP는 서버에서 클라이언트로 전송되는 정보가 암호화되지 않는 약점이 있었다.
+HTTP에 SSL(보안 소켓 계층)을 사용함으로써 보안을 강화하였다.
+즉, 서버와 브라우저 사이간 연결을 암호화하여 정보가 도난당하지 않게 하는 것이다.
+
+## 1. 깃플로우
+
+다양한 branch를 관리하고 통합하기 위한 전략 중 하나이다
 
 ```bash
-# install dependencies
-$ npm install
+* master : 제품으로 출시될 수 있는 브랜치
+* develop : 다음 출시 버전을 개발하는 브랜치
+* feature : 기능을 개발하는 브랜치
+* release : 이번 출시 버전을 준비하는 브랜치
+* hotfix : 출시 버전에서 발생한 버그를 수정 하는 브랜치
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
-## Special Directories
+## 2. 동기/비동기
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+동기(동시에 일어나는) - 설계가 매우 간단하고 직관적이지만 결과가 주어질 때까지 아무것도 못하고 대기해야 하는 단점
+비동기(동시에 일어나지않는) - 동기보다 복잡하지만 결과가 주어지는데 시간이 걸리더라도 그 시간 동안 다른 작업을 할 수 있으므로 자원을 효율적으로 사용
 
-### `assets`
+## 3. 호이스팅과 var, let, const
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+호이스팅(Hoisting)의 개념 - 함수 안에 있는 선언들을 모두 끌어올려서 해당 함수 유효 범위의 최상단에 선언하는 것을 말한다.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+1. var - 변수 재선언 가능
+2. let - 변수 재선언 불가능, 변수 재할당 가능
+3. const - 변수 재선언 불가능, 변수 재할당 불가능
 
-### `components`
+재할당이 필요없는 경우, const를 사용해 불필요한 변수의 재사용을 방지하고, 재할당이 필요한 경우 let을 사용하는 것이 좋다.
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+## 4. 브라우저 작동원리
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+브라우저의 주요 기능은 사용자가 선택한 자원을 서버에 요청하고 브라우저에 표시하는 것이다. 
+
+렌더링 엔진의 동작 과정
+DOM 트리 구축을 위한 HTML 파싱 => 렌더트리 구축 & 배치 => 렌더트리 그리기
+
+* 파싱이란? 브라우저가 코드를 이해하고 사용할 수 있는 구조로 변환
+* 렌더링이란? 개발자가 작성한 문서(html,css,javascript)가 브라우저 화면에 출력되는 과정
+
+```bash
+렌더링 과정
+
+서버에서 받아온 html,css 문서를 DOM과 SSOM 변환하여 DOM트리와 SSOM트리로 만든다.
+html,css 문서는 단순 텍스트기 때문에 Object Model로 연산관리를 해줘야한다.
+변환된 DOM 트리와 SSOM 트리로 렌더트리를 생성한다.
+렌더트리에는 스타일 정보가 표시되어 있으며 화면에 필요한 노드들로만 구성된다. (display:none은 포함되지 않음)
+layout - 렌더트리에서 노드들이 가지고 있는 속성과 스타일에 따라서 브라우저에 어떤 크키나 위치에 출력할지 레이아웃을 잡는 단계
+paint - 레이아웃이 완료되면 실제 화면에 그리는 과정
+```
+
+## 5. 클로저
+
+함수와 함수가 선언된 어휘적 환경의 조합
+
+```bash
+ function init() {
+      var name = "Mozilla"; // name은 init에 의해 생성된 지역 변수이다.
+      function displayName() { // displayName() 은 내부 함수이며, 클로저다.
+        alert(name); // 부모 함수에서 선언된 변수를 사용한다.
+      }
+      displayName();
+    }
+    //이 환경은 클로저가 생성된 시점의 유효 범위 내에 있는 모든 지역 변수로 구성된다.
+```
+
+## 6. 타입스크립트의 장점
+
+1. 컴파일 언어, 정적 타입 언어(정적 타입 지원에 의한 컴파일 단계에서의 오류 감지)
+ - 타입스크립트는 프로그래밍 언어인 동시에 컴파일러이다. 이 말인 즉슨, 타입스크립트로 열심히 코드를 작성한 이후, 타입스크립트 -> 자바스크립트 변환 과정을 거쳐야 한다는 것이다.
+2. 코드 작성 단계에서 타입을 체크해 오류를 확인할 수 있고 미리 타입을 결정하기 때문에 실행 속도가 매우 빠르다는 장점이 있다.
+3. 높은 수준의 코드 탐색과 디버깅
+ - 타입의 변수나 함수들에서 에러를 발생시켜 버그를 사전에 제거한디. 또한 코드 자동완성이나 실행 전 피드백을 제공하여 작업과 동시에 디버깅이 가능해 생산성을 높일 수 있다. 
+
+## 7. SSR과 CSR의 차이
+
+1. SSR의 정의와 설명
+ - Server Side Rendering의 약자.
+말 그대로 서버쪽에서 렌더링 준비를 끝마친 상태로 클라이언트에 전달하는 방식이다.
+
+2. CSR의 정의와 설명
+ - Client Side Rendering의 약자.
+말 그대로 SSR과 달리 렌더링이 클라이언트 쪽에서 일어난다. 즉, 서버는 요청을 받으면 클라이언트에 HTML과 JS를 보내준다. 클라이언트는 그것을 받아 렌더링을 시작한다.
+
+차이점
+
+1) 로딩시간
+* 첫 페이지 로딩시간.
+CSR의 경우 HTML, CSS와 모든 스크립트들을 한 번에 불러온다. 반면 SSR은 필요한 부분의 HTML과 스크립트만 불러오게 된다. 따라서 평균적으로 SSR이 더 빠르다.
+* 나머지 로딩 시간
+첫 페이지를 로딩한 후, 사이트의 다른 곳으로 이동하는 식의 동작을 가정하자. CSR은 이미 첫 페이지 로딩할 때 나머지 부분을 구성하는 코드를 받아왔기 때문에 빠르다.
+반면, SSR은 첫 페이지를 로딩한 과정을 정확하게 다시 실행한다. 그래서 더 느리다.
+
+2) SEO 대응
+검색 엔진은 자동화된 로봇인 '크롤러'로 웹 사이트들을 읽는다. CSR은 자바스크립트를 실행시켜 동적으로 컨텐츠가 생성되기 때문에 자바스크립트가 실행 되어야 meatadata가 바뀌었다. (이전 크롤러들은 자바스크립트를 실행시키지 않았었기에 SEO 최적화가 필수적이었다. 구글이 그 트렌드를 바꾸고 있다고 한다.)
+SSR은 애초에 서버 사이드에서 컴파일되어 클라이언트로 넘어오기 때문에 크롤러에 대응하기 용이하다.
+
+3) 서버 자원 사용
+SSR이 서버 자원을 더 많이 사용한다. 매번 서버에 요청을 하기 때문이다. 반면 CSR은 클라이언트에 몰아주기 때문에 서버에 부하가 적다.
+
+## 8. SEO (Search Engine Optimization)
+
+검색엔진 최적화, 즉 검색엔진에서 찾기 쉽도록 사이트를 개선하는 프로세스이다.
+```bash
+검색엔진최적화(SEO)로 상위에 랭크되는 방법
+1. 문법에 맞는 HTML 작성하기
+2. 구체적인 페이지 제목 만들기
+3. 메타 태그 활용하기
+4. 이미지에 alt 속성 기재
+5. anchor 태그를 활용한 적절한 키워드 배치
+6. HTTPS 사용 권장
+```
+
+## 9. script 
+
+async 속성이 명시된 경우 : 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행.
+async 속성은 명시되어 있지 않고 defer 속성만 명시된 경우 : 브라우저가 페이지의 파싱을 모두 끝내면 스크립트가 실행.
+async 속성과 defer 속성이 모두 명시되어 있지 않은 경우 : 브라우저가 페이지를 파싱하기 전에 스크립트를 가져와 바로 실행.
+
+## 10. Vue 생명주기
+
+상태에 따라서 호출할수 있는 속성들을 생명주기라고 한다.
+
+```bash
+beforeCreate - 인스턴스가 생성되고 나서 가장 처음으로 실행되는 라이프 사이클
+뷰 인스턴스의 data와 methods 속성이 정의되어 있지 않고 화면 요소(ex. dom)에 접근 불가
+created - data와 methods 속성 정의되어있음
+따라서 두 속성값에 접근 가능
+아직 화면 요소에 인스턴스가 부착되기 전이기 때문에 template 속성에 정의된 돔 요소에 접근하는 코드 구현 불가
+beforeMount - render()함수가 호출되기 직전의 단계
+created 이후에 template 속성에 지정한 마크업 속성을 render() 함수로 변환한 후 el 속성에 지정한 화면 요소에 인스턴스를 부착하기 직전 호출됨
+화면에 붙이기 전 실행해야 할 코드 구현
+mounted - el 속성에서 지정한 화면 요소에 인스턴스가 부착되고 난 후 호출되는 단계
+template 속성에서 정의한 화면 요소에 접근 가능
+화면 요소 제어하는 코드 구현
+돔에 인스턴스가 부착되자마자 호출되기 때문에 하위 컴포넌트나 외부 라이브러리에 의해 추가된 화면 요소들이 최종 html 코드로 변환되는 시점과 다를 수 있음
+beforeUpdate - el 속성에서 지정한 화면 요소에 인스턴스가 부착되고 난 후에 인스턴스 속성들이 화면에 치환됨
+치환된 값을 $watch 속성으로 감시 (관찰)
+관찰하고 있는 데이터가 변경되면 가상 돔을 이용해 화면을 다시 그려야함
+이때, 그리기 직전 호출되는 단계가 beforeUpdate
+변경 예정인 데이터 값을 이용해 작업을 해야할 때 이 단계에서 로직 구현
+변경하는 로직 구현해도 다시 화면에 그려지지는 않음
+updated - beforeUpdate가 끝나고 화면에 다시 그리고 나면 실행되는 단계
+데이터가 변경되고 화면 요소를 제어하고 싶을 때 이 단계에서 로직 구현
+그러나 beforeUpdate -> updated -> beforeUpdate -> .. 무한루프될 가능성 있음
+데이터 값 갱신하는 로직은 beforeUpdate에서 처리하는게 좋음
+beforeDestroy - 뷰 인스턴스가 destroy되기 직전에 호출되는 단계
+아직 인스턴스가 없어지지 않았기 때문에 접근 가능
+인스턴스의 데이터 삭제 혹은 인스턴스가 사라지기 직전에 해야하는 작업 구현
+destroyed - 뷰 인스턴스가 destroy되고 난 후 호출되는 단계
+뷰 인스턴스에 정의한 모든 속성이 제거되고 하위에 선언했던 인스턴스 모두 destroy됨
+```
+
+## 11. Nuxt.js & SPA
+Nuxt.js -  Vue.js 애플리케이션 개발을 보다 강력하고 사용하기 쉽게 만들어 주는 프레임워크이다.
+
+```bash
+Vue 파일 사용
+코드 분할 자동화
+SSR을 통한 SEO
+비동기 데이터 기반의 강력한 라우팅 시스템
+정적 파일 전송
+ES2015+ 지원
+JS & CSS 코드 번들링 및 압축
+<head> 요소 관리 (<title>, <meta>, 기타)
+전 처리기 지원 : SASS, LESS, Stylus 등
+Pre-rendering
+pages 폴더 기반의 자동 라우팅 설정
+웹팩을 비롯한 기타 설정
+```
+SPA - Web Application을 Single Page
+최초 한 번 페이지 전체를 로딩한 후 데이터만 변경하여 사용할 수 있는 애플리케이션을 의미한다.
+
+## 12. Angular 생명주기
+
+```bash
+ngOnChanges
+부모 컴포넌트에서 자식 컴포넌트의 입력 프로퍼티(@Input 데코레이터가 적용된 프로퍼티)에 바인딩한 값이 초기화 또는 변경되었을 때 호출됩니다. ngOnInit 호출 이전에 최소 1회 호출되며 이후 입력 프로퍼티가 변경될 때마다 호출됩니다. ngOnChanges 메소드는 입력 프로퍼티의 정보를 담고 있는 SimpleChanges 객체를 파라미터로 전달 받을 수 있습니다. 이 객체는 입력 프로퍼티의 현재값(currentValue)과 이전값(previousValue)을 포함하고 있습니다.
+
+ngOnInit
+ngOnChanges 메소드 동작 이후 입력 프로퍼티를 포함한 모든 프로퍼티의 초기화가 완료된 시점에 한 번만 호출됩니다. 일반적으로 프로퍼티의 초기화는 TypeScript에서는 constructor에서 하는 것이 일반적이지만 Angular에서는 ngOnInit에서 수행하는 것이 좋습니다. 
+
+※ constructor와 ngOnInit에서의 프로퍼티 초기화
+
+TypeScript의 constructor가 실행되는 시점에 Angular에서 관리하는 입력 프로퍼티는 초기화되기 이전의 상태입니다. 따라서 이 시점에 입력 프로퍼티를 참조할 경우 undefined가 반환되어 의도하지 않은 결과가 발생할 수 있습니다. 
+ngOnInit은 입력 프로퍼티의 참조가 보장되기 때문에 프로퍼티 초기화와 서버에서 데이터를 조회하여 할당하는 것과 같은 동작은 ngOnInit에서 수행해주는 것이 좋습니다.
+
+ngDoCheck
+ngOnInit 메소드 동작 이후 컴포넌트나 디렉티브의 상태 변화가 발생할 때마다 호출됩니다. 즉, 변화 감지(change detection) 로직이 실행될 때 호출되는데 컴포넌트의 프로퍼티 값이 변경되거나 DOM 이벤트, Timer 함수의 tick 이벤트, Ajax 통신과 같은 비동기 처리 등이 수행되는 경우가 이에 해당합니다. 하지만 ngDoCheck 메소드는 모든 상태 변화가 발생할 때마다 매번 호출되어 성능에 영향을 줄 수 있기 때문에 이를 고려하여 사용해야 합니다. 
+
+※ ngOnChanges와 ngDoCheck의 차이
+ngOnChanges는 입력 프로퍼티의 값에 변화에 따라 호출되지만, ngDoCheck은 모든 상태 변화에 따라 호출됩니다.
+
+ngAfterContentInit
+ngContent 디렉티브를 사용하여 자식 컴포넌트에 부모 컴포넌트의 템플릿 조각을 전달(content projection)한 이후 호출됩니다. ngDoCheck 메소드 호출 이후에 한 번만 호출되며 해당 컴포넌트에서만 동작합니다.
+
+ngAfterContentChecked
+부모 컴포넌트가 전달한 템플릿 조각을 체크한 후 ngAfterContentInit 메소드 호출 이후에 호출됩니다. ngAfterContentInit 메소드와 마찬가지로 해당 컴포넌트에서만 동작합니다.
+
+ngAfterViewInit
+컴포넌트의 View와 ViewChild가 초기화된 이후 호출됩니다. HTML에 작성된 내용이 화면에 모두 출력되고나서 호출되며 해당 컴포넌트에서만 동작합니다.
+
+ngAfterViewChecked
+컴포넌트의 View와 ViewChiled를 체크한 이후 호출됩니다. ngAfterViewInit 메소드 호출 이후에 호출되며 컴포넌트의 View에 대한 변화 감지(change detection)가 이루어질 때 동작합니다. ngAfterViewInit 메소드와 마찬가지로 해당 컴포넌트에서만 동작합니다.
+
+ngOnDestroy
+컴포넌트나 디렉티브가 소멸하기 이전에 호출됩니다. RxJS의 unsubscribe() 메소드와 같이 메모리 누수 등을 방지하기 위한 내용들을 정의합니다.
+다음으로 아래의 코드를 통해 생명주기 훅 메소드의 동작에 대해 알아보겠습니다. 생성한 Angular 애플리케이션의 src > app 아래에 다음과 같이 파일을 구성해줍니다.
+```
 
