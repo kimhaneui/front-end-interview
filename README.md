@@ -393,6 +393,6 @@ Representation of Resource
 
 ## 21. Vue 필수요소
 
-[Vue]:https://kr.vuejs.org/v2/guide/computed.html#computed-%EC%86%8D%EC%84%B1
+[Vue](https://kr.vuejs.org/v2/guide/computed.html#computed-%EC%86%8D%EC%84%B1)
 
 ## 22. 자기개발사항
