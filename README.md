@@ -161,6 +161,11 @@ SSR이 서버 자원을 더 많이 사용한다. 매번 서버에 요청을 하�
 
 상태에 따라서 호출할수 있는 속성들을 생명주기라고 한다.
 
+1. Creation : 컴포넌트 초기화 단계
+2. Mounting : 돔(DOM) 삽입 단계
+3. Updating : Diff 및 재 렌더링 단계
+4. Destruction : 해체 단계
+
 ```bash
 beforeCreate - 인스턴스가 생성되고 나서 가장 처음으로 실행되는 라이프 사이클
 뷰 인스턴스의 data와 methods 속성이 정의되어 있지 않고 화면 요소(ex. dom)에 접근 불가
@@ -214,7 +219,7 @@ pages 폴더 기반의 자동 라우팅 설정
 웹팩을 비롯한 기타 설정
 ```
 
-SPA - Web Application을 Single Page
+SPA - Single Page Application
 * 최초 한 번 페이지 전체를 로딩한 후 데이터만 변경하여 사용할 수 있는 애플리케이션을 의미한다.
 * CSR(Client Side Rendering) 방식으로 렌더링
 
@@ -305,3 +310,74 @@ RxJS의 unsubscribe() 메소드와 같이 메모리 누수 등을 방지하기 �
 * 쿠키 - 만료 기한이 있는 Key, Value 형태의 저장소, 암호화 존재 x (예: 다시 보지 않음 팝업 창)
 * 로컬스토리지 -  클라이언트에 대한 정보를 영구적으로 저장 (예: 자동 로그인)
 * 세션스토리지 - 세션 종료 시(브라우저 닫을 경우) 클라이언트에 대한 정보 삭제 (예: 입력 폼 정보)
+
+## 16. React vs Vue vs Angular 
+
+
+```bash
+React
+- 웹 뿐만 아니라 앱 개발에도 사용 ( React Native )
+- 페이스북이라는 거대한 업체의 지원
+- React는 Angular와 달리 완전한 프레임워크가 아니라서 추가적인 기능들에 대한 라이브러리가 필요
+```
+
+```bash
+Vue
+- 가장 적은 러닝커브 ( jQuery 등에 익숙한 기존 개발자도 가장 편하게 도입 가능 )
+- 가볍고 빠르게 개발이 필요하다면 추천
+- Evan You 라는 개인이 프로젝트 리더 
+- 양방향 바인딩
+```
+
+```bash
+Angular
+- 구글이라는 전세계적인 기업의 지원
+- 양방향 바인딩
+- TypeScript 가장 먼저 도입
+- 가장 체계적이고 잘 정리되어있는 문서
+- 가장 복잡하고 큰 러닝커브 ( 개발에 필요한 모든 것을 제공 )
+```
+* 양방향 바인딩? - 사용자의 입력값이 곧바로 코드 상의 변수에 바인딩 될 수 있다.
+
+## 17. this
+
+```bash
+함수 호출 - window
+메소드 호출 
+생성자 함수 호출
+apply/call/bind 호출
+```
+
+## 18. GET 과 POST 의 차이점 
+
+```bash
+사용목적 
+GET은 서버의 리소스에서 데이터를 요청할 때, POST는 서버의 리소스를 새로 생성하거나 업데이트할 때 사용한다.
+DB로 따지면 GET은 SELECT 에 가깝고, POST는 Create 에 가깝다고 보면 된다.
+
+요청에 body 유무
+GET 은 URL 파라미터에 요청하는 데이터를 담아 보내기 때문에 HTTP 메시지에 body가 없다. POST 는 body 에 데이터를 담아 보내기 때문에 당연히 HTTP 메시지에 body가 존재한다.
+
+멱등성(idemp여러 번 수행하더라도 동일한 결과)
+GET 요청은 멱등이며, POST는 멱등이 아니다.
+```
+
+## 19. RESTful API
+
+REST란 어떤 자원에 대해 CRUD(Create, Read, Update, Delete) 연산을 수행하기 위해 URI(Resource)로 요청을 보내는 것으로, 
+Get, Post 등의 방식(Method)을 사용하여 요청을 보내며, 요청을 위한 자원은 특정한 형태(Representation of Resource)으로 표현됩니다. 
+그리고 이러한 REST 기반의 API를 웹으로 구현한 것이 RESTful API
+
+```bash
+RESTful API의 구성요소
+
+Resource
+서버는 Unique한 ID를 가지는 Resource를 가지고 있으며, 클라이언트는 이러한 Resource에 요청을 보냅니다. 이러한 Resource는 URI에 해당합니다.
+ 
+Method
+서버에 요청을 보내기 위한 방식으로 GET, POST, PUT, PATCH, DELETE가 있습니다. CRUD 연산 중에서 처리를 위한 연산에 맞는 Method를 사용하여 서버에 요청을 보내야 합니다.(GET과 POST의 차이는 여기를 참고해주세요!)
+ 
+Representation of Resource
+클라이언트와 서버가 데이터를 주고받는 형태로 json, xml, text, rss 등이 있습니다. 최근에는 Key, Value를 활용하는 json을 주로 사용합니다.
+```
+
