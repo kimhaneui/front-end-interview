@@ -327,7 +327,7 @@ Vue
 - 가장 적은 러닝커브 ( jQuery 등에 익숙한 기존 개발자도 가장 편하게 도입 가능 )
 - 가볍고 빠르게 개발이 필요하다면 추천
 - Evan You 라는 개인이 프로젝트 리더 
-- 양방향 바인딩
+- 단방향/양방향 바인딩
 ```
 
 ```bash
@@ -394,5 +394,40 @@ Representation of Resource
 ## 21. Vue 필수요소
 
 [Vue](https://kr.vuejs.org/v2/guide/computed.html#computed-%EC%86%8D%EC%84%B1)
+
+* computed와 methods, watch
+
+```bash
+computed - 속성은 종속 대상을 따라 저장(캐싱)된다는 것, 즉 종속된 대상이 변경될 때만 함수를 실행 ,의존하는곳이 없을경우 절대로 업데이트안됌
+methods - 메소드를 호출하면 렌더링을 다시 할 때마다 항상 함수를 실행
+watch - 감시할 데이터를 지정하고 그 데이터가 바뀌면 이런 함수를 실행하라는 방식
+```
+
+* 데이터 바인딩
+
+```bash
+v-bind - 엘리먼트의 클래스 목록과 인라인 스타일을 조작하기 위해 일반적으로 사용 (예: v-bind:class / v-bind:style)
+v-if/v-else-if/v-else/v-show - 조건에 따라 블록을 렌더링하기 위해 사용
+v-for (+ :key) - 배열을 기반으로 리스트를 렌더링 (예: v-for="item in items")
+v-on (= @)- 클릭시 JavaScript를 실행
+v-model - 폼 input과 textarea 엘리먼트에 양방향 데이터 바인딩을 생성
+```
+
+## 22. RxJS
+
+* Reactive Extensions For JavaScript 라이브러리
+* Javascript 의 비동기 프로그래밍의 문제를 해결하는데 도움을 준다.
+* Subject/Scheduler를 지원한다.
+* Observer 패턴을 적용한 Observable 이라는 객체를 중심으로 동작한다.
+* Observable - 특정 객체를 관찰하는 Observer에게 여러 이벤트나 값을 보내는 역할을 한다.
+
+```bash
+Observable
+
+1. next : Observable 구독자에게 데이터를 전달한다.
+2. complete : Observable 구독자에게 완료 되었음을 알린다.
+3. error : Observable 구독자에게 에러를 전달한다.
+```
+
 
 ## 22. 자기개발사항
